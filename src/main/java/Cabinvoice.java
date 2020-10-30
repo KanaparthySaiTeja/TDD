@@ -6,6 +6,9 @@ class Invoicedetails{
    public int No_of_rides;
    private String Id;
   public double averagefare;
+    Invoicedetails(){
+
+    }
     Invoicedetails(String Id,int total, int No_of_rides,double averagefare){
         this.Id=Id;
         this.total=total;
@@ -23,8 +26,13 @@ public class Cabinvoice {
     int No_ofrides=0;
     public HashMap<String, ArrayList<Integer>>rides=new HashMap<>();
     public ArrayList<Integer>FareDetails;
-    public void faredetail(String Id,int distance,int time){
-        int TotalFare=invoiceGenerator(distance,time);
+    public enum type {
+        NORMAL,
+        PREMIUM
+    }
+    public void faredetail(String Id,type rideType,int distance,int time){
+        if (rideType == type.NORMAL){
+        int TotalFare=invoiceGeneratorNormal(distance,time);
         System.out.println("\nTotal Fare : "+TotalFare);
         No_ofrides++;
         ArrayList<Integer> rideDetails=new ArrayList<>();
@@ -33,13 +41,36 @@ public class Cabinvoice {
         }
         rideDetails.add(TotalFare);
         rides.put(Id,rideDetails);
-        System.out.println(rides);
+        System.out.println(rides);}
+        else if (rideType == type.PREMIUM){
+            int TotalFare=invoiceGeneratorPremium(distance,time);
+            System.out.println("\nTotal Fare : "+TotalFare);
+            No_ofrides++;
+            ArrayList<Integer> rideDetails=new ArrayList<>();
+            if(rides.containsKey(Id)){
+                rideDetails=rides.get(Id);
+            }
+            rideDetails.add(TotalFare);
+            rides.put(Id,rideDetails);
+            System.out.println(rides);}
+
     }
-     public int invoiceGenerator(int distance,int time){
+     public int invoiceGeneratorNormal(int distance,int time){
 
         int cost =distance*10+1*time;
         if(cost<5){
             Total=5;
+        }
+        else {
+            Total = cost;
+        }
+        return Total;
+    }
+    public int invoiceGeneratorPremium(int distance,int time){
+
+        int cost =distance*15+2*time;
+        if(cost<=20){
+            Total=20;
         }
         else {
             Total = cost;
