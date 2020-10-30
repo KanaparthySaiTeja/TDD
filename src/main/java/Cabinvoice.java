@@ -5,6 +5,7 @@ public class Cabinvoice {
         if(cost<5){
             return 5;
         }
+        
         return cost;
     }
 }
