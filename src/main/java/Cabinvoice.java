@@ -1,6 +1,23 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+class Invoicedetails{
+    public int total;
+   public int No_of_rides;
+   private String Id;
+  public double averagefare;
+    Invoicedetails(String Id,int total, int No_of_rides,double averagefare){
+        this.Id=Id;
+        this.total=total;
+        this.No_of_rides=No_of_rides;
+        this.averagefare=averagefare;
+    }
+    @Override
+    public String toString(){
+        return "UserId : " + Id + "\nTotal Fare : " + total +
+                "\nTotal number of Rides: " + No_of_rides + "\nAverage Amount : " + averagefare;
+    }
+}
 public class Cabinvoice {
     int Total=0;
     int No_ofrides=0;
@@ -20,13 +37,12 @@ public class Cabinvoice {
     }
      public int invoiceGenerator(int distance,int time){
 
-        int cost=0;
-        cost =distance*10+1*time;
+        int cost =distance*10+1*time;
         if(cost<5){
-            Total=Total+5;
+            Total=5;
         }
         else {
-            Total = Total + cost;
+            Total = cost;
         }
         return Total;
     }
@@ -40,21 +56,5 @@ public class Cabinvoice {
         double avg=(double)totalfare/(double)totalRides;
         return new Invoicedetails(Id, totalfare, totalRides, avg);
     }
-    class Invoicedetails{
-         int total;
-         int No_of_rides;
-         String Id;
-         double averagefare;
-         Invoicedetails(String Id,int total, int No_of_rides,double avearagefare){
-             this.Id=Id;
-             this.total=total;
-             this.No_of_rides=No_of_rides;
-             this.averagefare=avearagefare;
-         }
-         @Override
-         public String toString(){
-             return "UserId : " + Id + "\nTotal Fare : " + total +
-                     "\nTotal number of Rides: " + No_of_rides + "\nAverage Amount : " + averagefare;
-         }
-    }
+
 }
